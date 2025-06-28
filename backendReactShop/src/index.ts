@@ -1,0 +1,40 @@
+import express from 'express';
+import mongoose from 'mongoose';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import routes from './routes/index';
+import { errorHandler } from './middlewares/errorHandler';
+
+dotenv.config();
+
+const app = express();
+const port = 3000;
+
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+  })
+);
+
+app.use(express.json());
+app.use(cookieParser());
+
+app.use('/', routes);
+app.use(errorHandler);
+
+const start = async () => {
+  try {
+    mongoose.connect(process.env.DB_CONNECTION!).then(() => {
+      app.listen(port, () => {
+        console.log(`Server started on port ${port}`);
+      });
+    });
+  } catch (error) {
+    console.error('Ошибка при запуске сервера:', error);
+    process.exit(1);
+  }
+};
+
+start();

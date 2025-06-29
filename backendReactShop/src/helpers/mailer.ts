@@ -6,8 +6,8 @@ dotenv.config();
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.MAILER_USER,
-    pass: process.env.MAILER_PASS,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -19,7 +19,7 @@ export const sendMail = async (
 ) => {
   try {
     const result = await transporter.sendMail({
-      from: `ReactShop <${process.env.MAILER_USER}>`,
+      from: `ReactShop <${process.env.EMAIL_USER}>`,
       to,
       subject,
       text,

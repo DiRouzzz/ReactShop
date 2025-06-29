@@ -1,10 +1,13 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 export const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'drose1254@gmail.com',
-    pass: 'zzqvkigammuvrokc',
+    user: process.env.MAILER_USER,
+    pass: process.env.MAILER_PASS,
   },
 });
 
@@ -16,7 +19,7 @@ export const sendMail = async (
 ) => {
   try {
     const result = await transporter.sendMail({
-      from: 'ReactShop <drose1254@gmail.com>',
+      from: `ReactShop <${process.env.MAILER_USER}>`,
       to,
       subject,
       text,

@@ -19,21 +19,24 @@ export const Favorites: React.FC<Props> = () => {
           ? Array.from({ length: 4 }).map((_, index) => (
               <SkeletonCard key={index} />
             ))
-          : favorites?.products.length
-            ? favorites?.products.map((product) => (
-                <Card
-                  key={product.id}
-                  id={product.id}
-                  alt={product.name}
-                  name={product.name}
-                  src={product.image[0]}
-                  price={product.price}
-                  isFavorite={true}
-                  onToggleFavorite={() => toggleFavorite(product.id)}
-                />
-              ))
-            : 'Закладок нет'}
+          : favorites?.products.map((product) => (
+              <Card
+                key={product.id}
+                id={product.id}
+                alt={product.name}
+                name={product.name}
+                src={product.image[0]}
+                price={product.price}
+                isFavorite={true}
+                onToggleFavorite={() => toggleFavorite(product.id)}
+              />
+            ))}
       </div>
+      {favorites?.products.length === 0 && (
+        <div className="flex text-center justify-center text-2xl font-bold mt-10">
+          Закладок нет
+        </div>
+      )}
     </Container>
   );
 };

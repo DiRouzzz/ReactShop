@@ -5,6 +5,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import routes from './routes/index';
 import { errorHandler } from './middlewares/errorHandler';
+import path from 'path';
 
 dotenv.config();
 
@@ -20,6 +21,8 @@ app.use(
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.use('/', routes);
 app.use(errorHandler);

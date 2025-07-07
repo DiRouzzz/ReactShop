@@ -1,7 +1,3 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 class ApiError extends Error {

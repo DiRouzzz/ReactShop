@@ -14,7 +14,14 @@ const port = 3000;
 
 app.use(
   cors({
-    origin: 'http://94.198.216.234',
+    origin: (origin, callback) => {
+      const allowed = ['http://localhost:5173', 'http://94.198.216.234'];
+      if (!origin || allowed.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
   })
 );

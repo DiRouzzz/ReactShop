@@ -76,7 +76,7 @@ router.post(
 );
 
 router.post('/logout', (_, res: express.Response): void => {
-  res.cookie('token', '', { httpOnly: true }).send({});
+  res.cookie('token', '', { httpOnly: true }).send({ error: null });
 });
 
 export default router;

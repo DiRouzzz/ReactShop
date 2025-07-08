@@ -10,7 +10,7 @@ interface UserDto {
 export const authApi = {
   baseKey: 'user',
   register: (data: { email: string; password: string }) =>
-    jsonApiInstance('/api/register', {
+    jsonApiInstance('/api/auth/register', {
       method: 'POST',
       json: data,
     }),
@@ -19,7 +19,7 @@ export const authApi = {
     const response = await jsonApiInstance<{
       user?: UserDto;
       error: string | null;
-    }>('/api/verify', {
+    }>('/api/auth/verify', {
       method: 'POST',
       json: data,
     });
@@ -32,7 +32,7 @@ export const authApi = {
   },
 
   resend: (data: { email: string }) =>
-    jsonApiInstance('/api/resend', {
+    jsonApiInstance('/api/auth/resend', {
       method: 'POST',
       json: data,
     }),
@@ -45,7 +45,7 @@ export const authApi = {
     const response = await jsonApiInstance<{
       user?: UserDto;
       error: string | null;
-    }>('/api/login', {
+    }>('/api/auth/login', {
       method: 'POST',
       json: data,
     });
@@ -58,7 +58,7 @@ export const authApi = {
   },
 
   logout: () => {
-    return jsonApiInstance<{ error: null }>('/api/logout', {
+    return jsonApiInstance<{ error: null }>('/api/auth/logout', {
       method: 'POST',
     });
   },

@@ -19,12 +19,12 @@ export interface IOrderDto {
 export const orderApi = {
   baseKey: 'order',
   getOrders: () =>
-    jsonApiInstance<{ data: IOrderDto[] }>('/orders', {
+    jsonApiInstance<{ data: IOrderDto[] }>('/api/orders', {
       method: 'GET',
     }),
 
   createOrder: () =>
-    jsonApiInstance<{ data: IOrderDto; error?: string }>('/orders', {
+    jsonApiInstance<{ data: IOrderDto; error?: string }>('/api/orders', {
       method: 'POST',
     }),
 };

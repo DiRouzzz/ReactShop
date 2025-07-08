@@ -46,7 +46,7 @@ export const productsListApi = {
           queryParams.set('priceTo', priceTo.toString());
 
         return jsonApiInstance<PaginatedResult<ProductsDto>>(
-          `/products?${queryParams.toString()}`,
+          `/api/products?${queryParams.toString()}`,
           { signal: meta.signal }
         );
       },
@@ -59,24 +59,24 @@ export const productsListApi = {
   getProductByIdQueryOptions: (id: string) => {
     return queryOptions({
       queryKey: ['products', id],
-      queryFn: () => jsonApiInstance<ProductsDto>(`/products/${id}`),
+      queryFn: () => jsonApiInstance<ProductsDto>(`/api/products/${id}`),
     });
   },
 
   createProduct: (payload: ProductsDto) =>
-    jsonApiInstance<{ data: ProductsDto; error?: string }>('/products', {
+    jsonApiInstance<{ data: ProductsDto; error?: string }>('/api/products', {
       method: 'POST',
       json: payload,
     }),
 
   updateProduct: (id: string, payload: ProductsDto) =>
-    jsonApiInstance<{ data: ProductsDto; error?: string }>(`/products/${id}`, {
+    jsonApiInstance<{ data: ProductsDto; error?: string }>(`/api/products/${id}`, {
       method: 'PATCH',
       json: payload,
     }),
 
   deleteProduct: (id: string) =>
-    jsonApiInstance<{ error: null }>(`/products/${id}`, {
+    jsonApiInstance<{ error: null }>(`/api/products/${id}`, {
       method: 'DELETE',
     }),
 };

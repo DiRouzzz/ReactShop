@@ -24,10 +24,15 @@ export const getProducts = async (
     query.typeProduct = typeProduct;
   }
 
-  if (priceFrom !== undefined || priceTo !== undefined) {
+  const validPriceFrom =
+    priceFrom !== undefined && !isNaN(priceFrom) ? priceFrom : undefined;
+  const validPriceTo =
+    priceTo !== undefined && !isNaN(priceTo) ? priceTo : undefined;
+
+  if (validPriceFrom !== undefined || validPriceTo !== undefined) {
     query.price = {};
-    if (priceFrom !== undefined) query.price.$gte = priceFrom;
-    if (priceTo !== undefined) query.price.$lte = priceTo;
+    if (validPriceFrom !== undefined) query.price.$gte = validPriceFrom;
+    if (validPriceTo !== undefined) query.price.$lte = validPriceTo;
   }
 
   const products = await Product.find(query).skip(offset).limit(limit).exec();

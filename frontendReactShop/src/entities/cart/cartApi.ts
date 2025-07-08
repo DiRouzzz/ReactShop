@@ -28,19 +28,19 @@ export interface ICartDto {
 export const cartApi = {
   baseKey: 'cart',
   getCart: () =>
-    jsonApiInstance<{ data: ICartDto }>('/cart', {
+    jsonApiInstance<{ data: ICartDto }>('/api/cart', {
       method: 'GET',
     }),
 
   addToCart: (productId: string, size: string) =>
-    jsonApiInstance<{ data: ICartDto; error?: string }>(`/cart/${productId}`, {
+    jsonApiInstance<{ data: ICartDto; error?: string }>(`/api/cart/${productId}`, {
       method: 'POST',
       json: { size },
     }),
 
   removeFromCart: (productId: string, size: string, force?: boolean) =>
     jsonApiInstance<{ data: ICartDto; error?: string }>(
-      `/cart/${productId}?size=${encodeURIComponent(size)}${
+      `/api/cart/${productId}?size=${encodeURIComponent(size)}${
         force ? '&force=true' : ''
       }`,
       {
@@ -49,7 +49,7 @@ export const cartApi = {
     ),
 
   clearCart: () =>
-    jsonApiInstance('/cart', {
+    jsonApiInstance('/api/cart', {
       method: 'DELETE',
     }),
 };

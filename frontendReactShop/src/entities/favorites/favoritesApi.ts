@@ -24,18 +24,18 @@ export interface IFavoriteDto {
 export const favoritesApi = {
   baseKey: 'favorites',
   getFavorites: () =>
-    jsonApiInstance<{ data: IFavoriteDto }>('/favorites', {
+    jsonApiInstance<{ data: IFavoriteDto }>('/api/favorites', {
       method: 'GET',
     }),
 
   addToFavorites: (productId: string) =>
-    jsonApiInstance<{ data: IFavoriteDto }>(`/favorites/${productId}`, {
+    jsonApiInstance<{ data: IFavoriteDto }>(`/api/favorites/${productId}`, {
       method: 'POST',
     }),
 
   removeFromFavorites: (productId: string) =>
     jsonApiInstance<{ data: IFavoriteDto; error?: string }>(
-      `/favorites/${productId}`,
+      `/api/favorites/${productId}`,
       {
         method: 'DELETE',
       }

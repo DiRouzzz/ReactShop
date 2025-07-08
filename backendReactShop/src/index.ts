@@ -6,33 +6,29 @@ import dotenv from 'dotenv';
 import routes from './routes/index';
 import { errorHandler } from './middlewares/errorHandler';
 import path from 'path';
+import { Request, Response } from 'express';
 
 dotenv.config();
 
 const app = express();
 const port = 3000;
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      const allowed = ['http://localhost:5173', process.env.FRONTEND_URL];
-      if (!origin || allowed.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: process.env.FRONTEND_URL,
+  credentials: true,
+}));
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../frontendReactShop/dist')));
 
-app.use('/', routes);
+app.use('/api', routes);
 app.use(errorHandler);
+
+app.get('*', (_req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, '../frontendReactShop/dist/index.html'));
+});
 
 const start = async () => {
   try {

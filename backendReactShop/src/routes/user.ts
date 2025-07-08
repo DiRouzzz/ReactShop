@@ -18,7 +18,7 @@ router.get(
   authenticated,
   hasRole([ROLE.ADMIN]),
   async (
-    req: express.Request,
+    _req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
@@ -35,7 +35,7 @@ router.get(
   '/roles',
   authenticated,
   hasRole([ROLE.ADMIN]),
-  (req: express.Request, res: express.Response) => {
+  (_req: express.Request, res: express.Response) => {
     const roles = getRoles();
     res.send({ data: roles });
   }

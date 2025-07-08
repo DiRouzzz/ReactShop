@@ -3,7 +3,7 @@ import { HttpError } from '../helpers/httpError';
 
 export const errorHandler: ErrorRequestHandler = (
   err: unknown,
-  req: Request,
+  _req: Request,
   res: Response,
   next: NextFunction
 ) => {

@@ -12,9 +12,9 @@ RUN bun run build
 WORKDIR /usr/src/app/backendReactShop
 RUN apk add --no-cache libstdc++
 RUN bun install
+RUN bun run build
 
-RUN mkdir -p ./public && cp -r /usr/src/app/frontendReactShop/dist/* ./public/
 
 EXPOSE 3000
 
-CMD ["bun", "run", "src/index.ts"]
+CMD ["bun", "run", "dist/index.js"]

@@ -130,7 +130,7 @@ router.delete(
 router.get(
   '/max/price',
   async (
-    req: express.Request,
+    _req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {

@@ -13,21 +13,23 @@ dotenv.config();
 const app = express();
 const port = 3000;
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(express.static(path.join(__dirname, '../frontendReactShop/dist')));
+app.use(express.static(path.join(__dirname, '../../frontendReactShop/dist')));
 
 app.use('/api', routes);
 app.use(errorHandler);
 
 app.get('*', (_req: Request, res: Response) => {
-  res.sendFile(path.join(__dirname, '../frontendReactShop/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../../frontendReactShop/dist/index.html'));
 });
 
 const start = async () => {

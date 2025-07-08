@@ -7,7 +7,7 @@ export const useEditProduct = () => {
   const { id } = useParams();
   return useQuery<Product>({
     queryKey: ['product', id],
-    queryFn: () => jsonApiInstance(`/products/${id}`),
+    queryFn: () => jsonApiInstance(`/api/products/${id}`),
     enabled: !!id,
   });
 };

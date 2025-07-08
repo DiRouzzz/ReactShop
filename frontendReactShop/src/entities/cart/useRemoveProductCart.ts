@@ -1,9 +1,7 @@
-import { useAuth } from '@/app/AuthContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { cartApi } from './cartApi';
 
 export const useRemoveProductCart = () => {
-  // const { userData } = useAuth();
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -16,7 +14,6 @@ export const useRemoveProductCart = () => {
       size: string;
       force?: boolean;
     }) => {
-      // if (!userData) throw new Error('Необходимо авторизоваться');
       return cartApi.removeFromCart(productId, size, force);
     },
     onSuccess: () => {

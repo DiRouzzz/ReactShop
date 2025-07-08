@@ -3,27 +3,6 @@ import { useFavorites } from './useFavorites';
 import { favoritesApi, type IFavoriteDto } from './favoritesApi';
 import { checkProductInFavorites } from '@/utils/checkProductInFavorites';
 
-// export const useToggleFavorite = () => {
-// 	const { userData } = useAuth();
-// 	const queryClient = useQueryClient();
-// 	const { data: favorites } = useFavorites();
-
-// 	const mutation = useMutation({
-// 		mutationFn: async (productId: string) => {
-// 			if (!userData) throw new Error('Необходимо авторизоваться');
-
-// 			return checkProductInFavorites(favorites, productId)
-// 				? favoritesApi.removeFromFavorites(productId)
-// 				: favoritesApi.addToFavorites(productId);
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['favorites'] });
-// 		},
-// 	});
-
-// 	return mutation;
-// };
-
 export const useToggleFavorite = () => {
   const queryClient = useQueryClient();
   const { data: favorites } = useFavorites();

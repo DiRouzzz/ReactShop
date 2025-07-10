@@ -3,14 +3,7 @@ const getBaseUrl = () => {
     return import.meta.env.VITE_API_URL;
   }
 
-  if (
-    typeof window !== 'undefined' &&
-    !window.location.hostname.includes('localhost')
-  ) {
-    return `${window.location.protocol}//${window.location.hostname}:3000`;
-  }
-
-  return 'http://localhost:3000';
+  return '';
 };
 
 const BASE_URL = getBaseUrl();

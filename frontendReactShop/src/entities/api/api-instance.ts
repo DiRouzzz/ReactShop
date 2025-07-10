@@ -1,11 +1,21 @@
 const getBaseUrl = () => {
+  // Принудительно для продакшена
+  if (
+    typeof window !== 'undefined' &&
+    window.location.hostname === '94.198.216.234'
+  ) {
+    const url = 'http://94.198.216.234:3000';
+    console.log('Using hardcoded production URL:', url);
+    return url;
+  }
+
   // Если есть переменная окружения, используем её
   if (import.meta.env.VITE_API_URL) {
     console.log('Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
 
-  // Принудительно для продакшена (когда хост не localhost)
+  // В продакшене (когда хост не localhost)
   if (
     typeof window !== 'undefined' &&
     window.location.hostname !== 'localhost'

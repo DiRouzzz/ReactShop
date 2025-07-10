@@ -9,12 +9,14 @@ WORKDIR /usr/src/app/frontendReactShop
 RUN bun install
 RUN bun run build
 
+
 WORKDIR /usr/src/app/backendReactShop
 RUN apk add --no-cache libstdc++
 RUN bun install
 RUN bun run build
 
-
 EXPOSE 3000
 
-CMD ["bun", "run", "dist/index.js"]
+WORKDIR /usr/src/app/backendReactShop
+ENV NODE_ENV=production
+CMD ["node", "dist/index.js"]

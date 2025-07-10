@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "bun --watch src/index.ts",
-    "start": "ts-node src/index.ts",
+    "dev": "NODE_ENV=development bun --watch src/index.ts",
+    "start": "NODE_ENV=development ts-node src/index.ts",
     "build": "tsc",
-    "serve": "node dist/index.js"
+    "serve": "NODE_ENV=production node dist/index.js"
   },
   "keywords": [],
   "author": "",

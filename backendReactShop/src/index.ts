@@ -23,15 +23,15 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../../frontendReactShop/dist')));
+// if (process.env.NODE_ENV === 'production') {
+//   app.use(express.static(path.join(__dirname, '../../frontendReactShop/dist')));
 
-  app.get('*', (_req: Request, res: Response) => {
-    res.sendFile(
-      path.join(__dirname, '../../frontendReactShop/dist/index.html')
-    );
-  });
-}
+//   app.get('*', (_req: Request, res: Response) => {
+//     res.sendFile(
+//       path.join(__dirname, '../../frontendReactShop/dist/index.html')
+//     );
+//   });
+// }
 
 app.use('/api', routes);
 app.use(errorHandler);

@@ -5,10 +5,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import routes from './routes/index';
 import { errorHandler } from './middlewares/errorHandler';
-import path from 'path';
-import { Request, Response } from 'express';
 
-dotenv.config();
+const envFile =
+  process.env.NODE_ENV === 'production'
+    ? '.env.production'
+    : '.env.development';
+dotenv.config({ path: envFile });
 
 const app = express();
 const port = 3000;
@@ -23,16 +25,6 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-// if (process.env.NODE_ENV === 'production') {
-//   app.use(express.static(path.join(__dirname, '../../frontendReactShop/dist')));
-
-//   app.get('*', (_req: Request, res: Response) => {
-//     res.sendFile(
-//       path.join(__dirname, '../../frontendReactShop/dist/index.html')
-//     );
-//   });
-// }
-
 app.use('/api', routes);
 app.use(errorHandler);
 
@@ -41,6 +33,8 @@ const start = async () => {
     mongoose.connect(process.env.DB_CONNECTION!).then(() => {
       app.listen(port, () => {
         console.log(`Server started on port ${port}`);
+        console.log(`CORS origin: ${process.env.FRONTEND_URL}`);
+        console.log(`Env mode: ${process.env.NODE_ENV}`);
       });
     });
   } catch (error) {

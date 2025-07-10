@@ -1,25 +1,31 @@
 version: '3.8'
 
 services:
-  frontend:
-    build:
-      context: .
-      dockerfile: frontendReactShop/Dockerfile
-    ports:
-      - '80:80'
-    depends_on:
-      - backend
-    networks:
-      - reactshop-network
-
   backend:
     build:
       context: .
       dockerfile: backendReactShop/Dockerfile
+    container_name: reactshop-backend
     ports:
       - '3000:3000'
+    env_file:
+      - backendReactShop/.env.production
     environment:
       - NODE_ENV=production
+    restart: unless-stopped
+    networks:
+      - reactshop-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontendReactShop/Dockerfile
+    container_name: reactshop-frontend
+    ports:
+      - '80:80'
+    depends_on:
+      - backend
+    restart: unless-stopped
     networks:
       - reactshop-network
 

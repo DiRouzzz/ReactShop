@@ -1,12 +1,24 @@
 const getBaseUrl = () => {
+  // Если есть переменная окружения, используем её
   if (import.meta.env.VITE_API_URL) {
     return import.meta.env.VITE_API_URL;
   }
 
+  // В продакшене (когда нет порта в URL)
+  if (typeof window !== 'undefined' && window.location.port === '') {
+    // Используем тот же хост, но порт 3000
+    return `${window.location.protocol}//${window.location.hostname}:3000`;
+  }
+
+  // В разработке используем относительный URL
   return '';
 };
 
 const BASE_URL = getBaseUrl();
+
+// Отладочная информация
+console.log('API Base URL:', BASE_URL);
+console.log('Current location:', window.location.href);
 
 class ApiError extends Error {
   constructor(public response: Response) {
@@ -29,7 +41,10 @@ export const jsonApiInstance = async <T>(
     init.body = JSON.stringify(init.json);
   }
 
-  const result = await fetch(`${BASE_URL}${url}`, {
+  const fullUrl = `${BASE_URL}${url}`;
+  console.log('Making API request to:', fullUrl);
+
+  const result = await fetch(fullUrl, {
     ...init,
     headers,
     credentials: 'include',

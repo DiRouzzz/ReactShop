@@ -1,19 +1,22 @@
 const getBaseUrl = () => {
   // Если есть переменная окружения, используем её
   if (import.meta.env.VITE_API_URL) {
+    console.log('Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
 
-  // В продакшене (когда нет localhost в URL)
+  // Принудительно для продакшена (когда хост не localhost)
   if (
     typeof window !== 'undefined' &&
-    !window.location.hostname.includes('localhost')
+    window.location.hostname !== 'localhost'
   ) {
-    // Используем тот же хост, но порт 3000
-    return `${window.location.protocol}//${window.location.hostname}:3000`;
+    const url = `${window.location.protocol}//${window.location.hostname}:3000`;
+    console.log('Using production URL:', url);
+    return url;
   }
 
   // В разработке используем относительный URL
+  console.log('Using development URL (empty string)');
   return '';
 };
 
@@ -24,6 +27,10 @@ console.log('API Base URL:', BASE_URL);
 console.log('Current location:', window.location.href);
 console.log('Hostname:', window.location.hostname);
 console.log('Port:', window.location.port);
+console.log(
+  'Hostname === localhost:',
+  window.location.hostname === 'localhost'
+);
 
 class ApiError extends Error {
   constructor(public response: Response) {

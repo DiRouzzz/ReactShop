@@ -1,16 +1,15 @@
-// Определяем базовый URL в зависимости от окружения
 const getBaseUrl = () => {
-  // Если есть переменная окружения, используем её
   if (import.meta.env.VITE_API_URL) {
     return import.meta.env.VITE_API_URL;
   }
-  
-  // В продакшене (когда нет localhost в URL)
-  if (typeof window !== 'undefined' && !window.location.hostname.includes('localhost')) {
-    return 'http://backend:3000';
+
+  if (
+    typeof window !== 'undefined' &&
+    !window.location.hostname.includes('localhost')
+  ) {
+    return `${window.location.protocol}//${window.location.hostname}:3000`;
   }
-  
-  // В разработке
+
   return 'http://localhost:3000';
 };
 

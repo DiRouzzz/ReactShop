@@ -78,8 +78,6 @@ export const Product = ({ className }: { className?: string }) => {
     setSelectedSize(null);
   };
 
-  if (!product) return <ProductNotExist />;
-
   const handleDeleteProduct = () => {
     toast('Удаление товара', {
       description: `Вы уверены, что хотите удалить товар "${product?.name}"?`,
@@ -99,6 +97,8 @@ export const Product = ({ className }: { className?: string }) => {
         <Spinner className="h-12 w-12" />
       </div>
     );
+
+  if (!product) return <ProductNotExist />;
   if (error) return <div>Ошибка: {JSON.stringify(error)}</div>;
 
   return (

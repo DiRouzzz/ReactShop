@@ -1,46 +1,19 @@
 const getBaseUrl = () => {
-  // Принудительно для продакшена
-  if (
-    typeof window !== 'undefined' &&
-    window.location.hostname === '94.198.216.234'
-  ) {
-    const url = 'http://94.198.216.234:3000';
-    console.log('Using hardcoded production URL:', url);
-    return url;
-  }
-
-  // Если есть переменная окружения, используем её
   if (import.meta.env.VITE_API_URL) {
-    console.log('Using VITE_API_URL:', import.meta.env.VITE_API_URL);
     return import.meta.env.VITE_API_URL;
   }
 
-  // В продакшене (когда хост не localhost)
   if (
     typeof window !== 'undefined' &&
     window.location.hostname !== 'localhost'
   ) {
-    const url = `${window.location.protocol}//${window.location.hostname}:3000`;
-    console.log('Using production URL:', url);
-    return url;
+    return `${window.location.protocol}//${window.location.hostname}:3000`;
   }
 
-  // В разработке используем относительный URL
-  console.log('Using development URL (empty string)');
   return '';
 };
 
 const BASE_URL = getBaseUrl();
-
-// Отладочная информация
-console.log('API Base URL:', BASE_URL);
-console.log('Current location:', window.location.href);
-console.log('Hostname:', window.location.hostname);
-console.log('Port:', window.location.port);
-console.log(
-  'Hostname === localhost:',
-  window.location.hostname === 'localhost'
-);
 
 class ApiError extends Error {
   constructor(public response: Response) {
@@ -63,10 +36,7 @@ export const jsonApiInstance = async <T>(
     init.body = JSON.stringify(init.json);
   }
 
-  const fullUrl = `${BASE_URL}${url}`;
-  console.log('Making API request to:', fullUrl);
-
-  const result = await fetch(fullUrl, {
+  const result = await fetch(`${BASE_URL}${url}`, {
     ...init,
     headers,
     credentials: 'include',

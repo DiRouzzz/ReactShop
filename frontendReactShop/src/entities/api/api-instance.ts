@@ -4,8 +4,11 @@ const getBaseUrl = () => {
     return import.meta.env.VITE_API_URL;
   }
 
-  // В продакшене (когда нет порта в URL)
-  if (typeof window !== 'undefined' && window.location.port === '') {
+  // В продакшене (когда нет localhost в URL)
+  if (
+    typeof window !== 'undefined' &&
+    !window.location.hostname.includes('localhost')
+  ) {
     // Используем тот же хост, но порт 3000
     return `${window.location.protocol}//${window.location.hostname}:3000`;
   }
@@ -19,6 +22,8 @@ const BASE_URL = getBaseUrl();
 // Отладочная информация
 console.log('API Base URL:', BASE_URL);
 console.log('Current location:', window.location.href);
+console.log('Hostname:', window.location.hostname);
+console.log('Port:', window.location.port);
 
 class ApiError extends Error {
   constructor(public response: Response) {

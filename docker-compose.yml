@@ -21,13 +21,10 @@ services:
       context: .
       dockerfile: frontendReactShop/Dockerfile
     container_name: reactshop-frontend
-    ports:
-      - '80:80'
+    network_mode: host
     depends_on:
       - backend
     restart: unless-stopped
-    networks:
-      - reactshop-network
 
 networks:
   reactshop-network:

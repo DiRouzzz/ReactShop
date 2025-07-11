@@ -98,8 +98,8 @@ export const Product = ({ className }: { className?: string }) => {
       </div>
     );
 
-  if (!product) return <ProductNotExist />;
   if (error) return <div>Ошибка: {JSON.stringify(error)}</div>;
+  if (!product) return <ProductNotExist />;
 
   return (
     <Container>

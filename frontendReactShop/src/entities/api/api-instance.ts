@@ -1,19 +1,4 @@
-const getBaseUrl = () => {
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
-
-  if (
-    typeof window !== 'undefined' &&
-    window.location.hostname !== 'localhost'
-  ) {
-    return `${window.location.protocol}//${window.location.hostname}:3000`;
-  }
-
-  return '';
-};
-
-const BASE_URL = getBaseUrl();
+const BASE_URL = import.meta.env.VITE_API_URL || '';
 
 class ApiError extends Error {
   constructor(public response: Response) {

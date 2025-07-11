@@ -11,5 +11,4 @@ RUN bun install
 EXPOSE 3000
 
 WORKDIR /usr/src/app/backendReactShop
-ENV NODE_ENV=production
 CMD ["bun", "serve"]

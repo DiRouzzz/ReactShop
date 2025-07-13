@@ -8,4 +8,6 @@ RUN bun install
 
 COPY . .
 
+RUN cp .env.production .env
+
 RUN bun run build

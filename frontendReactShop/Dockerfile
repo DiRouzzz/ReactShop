@@ -8,4 +8,4 @@ RUN bun install
 
 COPY . .
 
-CMD ["bun", "run", "build"]
+RUN bun run build

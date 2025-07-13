@@ -90,10 +90,11 @@ bun install
 3. Создайте файл `.env` в корне backend папки:
 
 ```env
-DB_CONNECTION=mongodb://localhost:27017/reactshop
+DB_CONNECTION=mongodb://your_db/reactshop
 JWT_SECRET=your_jwt_secret_key
 EMAIL_USER=your_email@gmail.com
 EMAIL_PASS=your_email_password
+FRONTEND_URL=http://localhost:5173
 ```
 
 4. Запустите сервер разработки:

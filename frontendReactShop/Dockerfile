@@ -17,6 +17,9 @@ RUN bun run build
 # Устанавливаем nginx для раздачи статических файлов
 RUN apk add --no-cache nginx
 
+# Создаем необходимые директории
+RUN mkdir -p /usr/share/nginx/html
+
 # Копируем собранные файлы в папку nginx
 RUN cp -r dist/* /usr/share/nginx/html/
 

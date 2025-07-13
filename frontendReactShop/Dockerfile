@@ -8,4 +8,4 @@ RUN bun install
 
 COPY . .
 
-RUN VITE_API_URL=http://94.198.216.234 bun run build
+CMD ["bun", "run", "build"]

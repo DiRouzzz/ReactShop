@@ -18,6 +18,8 @@ import {
 
 export const App = () => {
   useAuth();
+  console.log(import.meta.env.MODE);
+  console.log(import.meta.env.VITE_API_URL);
 
   return (
     <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">

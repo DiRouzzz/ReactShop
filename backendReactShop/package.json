@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development bun --watch src/index.ts",
     "build": "tsc",
-    "serve": "bun src/index.ts --mode production"
+    "serve": "cross-env NODE_ENV=production bun src/index.ts"
   },
   "keywords": [],
   "author": "",

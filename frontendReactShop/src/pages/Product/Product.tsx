@@ -20,6 +20,7 @@ import {
   ButtonArrowRight,
   ButtonLike,
   ButtonLink,
+  ButtonSpinner,
   Container,
   H2,
   Paragraph,
@@ -164,7 +165,7 @@ export const Product = ({ className }: { className?: string }) => {
                     >
                       {isDeletePending ? (
                         <>
-                          <Spinner className="mr-2 h-4 w-4" />
+                          <ButtonSpinner />
                           Удаление...
                         </>
                       ) : (

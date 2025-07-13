@@ -22,7 +22,8 @@ export const SheetCart = () => {
   const { data: cart, isLoading } = useCart();
   const { mutateAsync: clearCart } = useClearCart();
   const { totalCount, totalPrice } = getCartStats(cart?.products || []);
-  const { mutateAsync: createOrder } = useCreateOrder();
+  const { mutateAsync: createOrder, isPending: isOrderPending } =
+    useCreateOrder();
   const [isOrderComplete, setIsOrderComplete] = useState(false);
 
   const handleCreateOrder = async () => {
@@ -107,6 +108,7 @@ export const SheetCart = () => {
               className="h-[40px] rounded-3xl"
               text="Оформить заказ"
               onClick={handleCreateOrder}
+              disabled={isOrderPending}
             />
           </SheetFooter>
         ) : null}

@@ -30,11 +30,14 @@ app.use(errorHandler);
 
 const start = async () => {
   try {
-    mongoose.connect(process.env.DB_CONNECTION!).then(() => {
+    if (!process.env.DB_CONNECTION) {
+      throw new Error('DB_CONNECTION not defined in env file');
+    }
+    mongoose.connect(process.env.DB_CONNECTION).then(() => {
       app.listen(port, () => {
         console.log(`Server started on port ${port}`);
         console.log(`CORS origin: ${process.env.FRONTEND_URL}`);
-        console.log(`Env mode: ${process.env.NODE_ENV}`);
+        console.log(`Env mode: ${envFile}`);
       });
     });
   } catch (error) {

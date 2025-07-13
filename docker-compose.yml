@@ -3,24 +3,35 @@ version: '3.8'
 services:
   backend:
     build:
-      context: .
-      dockerfile: backendReactShop/Dockerfile
+      context: ./backendReactShop
+      dockerfile: Dockerfile
     container_name: reactshop-backend
-    ports:
-      - '3000:3000'
     restart: unless-stopped
     networks:
       - reactshop-network
 
   frontend:
     build:
-      context: .
-      dockerfile: frontendReactShop/Dockerfile
+      context: ./frontendReactShop
+      dockerfile: Dockerfile
     container_name: reactshop-frontend
-    network_mode: host
-    depends_on:
-      - backend
     restart: unless-stopped
+    networks:
+      - reactshop-network
+
+  nginx:
+    image: nginx:stable
+    container_name: reactshop-nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./frontendReactShop/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - reactshop-network
 
 networks:
   reactshop-network:

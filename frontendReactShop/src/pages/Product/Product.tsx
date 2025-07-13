@@ -20,6 +20,7 @@ import {
   ButtonArrowRight,
   ButtonLike,
   ButtonLink,
+  ButtonSpinner,
   Container,
   H2,
   Paragraph,
@@ -99,6 +100,7 @@ export const Product = ({ className }: { className?: string }) => {
     );
 
   if (error) return <div>Ошибка: {JSON.stringify(error)}</div>;
+  if (!product) return <ProductNotExist />;
 
   if (!product) return <ProductNotExist />;
 
@@ -165,7 +167,7 @@ export const Product = ({ className }: { className?: string }) => {
                     >
                       {isDeletePending ? (
                         <>
-                          <Spinner className="mr-2 h-4 w-4" />
+                          <ButtonSpinner />
                           Удаление...
                         </>
                       ) : (

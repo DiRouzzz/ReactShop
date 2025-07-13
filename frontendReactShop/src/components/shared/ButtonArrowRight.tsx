@@ -7,6 +7,7 @@ interface IButtonArrowRightProps {
   text?: string;
   className?: string;
   onClick: () => void;
+  disabled?: boolean;
 }
 
 export const ButtonArrowRight: React.FC<IButtonArrowRightProps> = ({

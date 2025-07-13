@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { useCreateProduct, useUpdateProduct } from '@/entities/products';
 import { uploadImages } from '@/entities/api/upload-image';
 import { ImageUploader, type ImageFile } from './components';
+import { ButtonSpinner } from '../ButtonSpinner';
 
 export interface Product {
   id?: string;
@@ -40,17 +41,27 @@ export const ProductForm = ({ defaultValues }: ProductFormProps) => {
         }
       : undefined,
   });
-  const { mutateAsync: createProduct } = useCreateProduct();
-  const { mutateAsync: updateProduct } = useUpdateProduct();
+  const { mutateAsync: createProduct, isPending: isCreatePending } =
+    useCreateProduct();
+  const { mutateAsync: updateProduct, isPending: isUpdatePending } =
+    useUpdateProduct();
 
   const navigate = useNavigate();
   const [imageFiles, setImageFiles] = useState<ImageFile[]>([]);
   const [existingImages, setExistingImages] = useState<string[]>(
     defaultValues?.image || []
   );
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const isEditing = !!defaultValues;
 
   const onSubmit = async (data: Product) => {
+    // Дополнительная проверка, чтобы предотвратить множественные отправки
+    if (isCreatePending || isUpdatePending || isSubmitting) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
     try {
       const newImageUrls =
         imageFiles.length > 0
@@ -87,6 +98,8 @@ export const ProductForm = ({ defaultValues }: ProductFormProps) => {
     } catch (error) {
       console.error(error);
       toast.error('Ошибка при сохранении товара');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -122,8 +135,19 @@ export const ProductForm = ({ defaultValues }: ProductFormProps) => {
         imageFiles={imageFiles}
       />
 
-      <Button className="flex w-[300px] mx-auto" type="submit">
-        {isEditing ? 'Обновить' : 'Создать'} товар
+      <Button
+        className="flex w-[300px] mx-auto"
+        type="submit"
+        disabled={isCreatePending || isUpdatePending || isSubmitting}
+      >
+        {isCreatePending || isUpdatePending || isSubmitting ? (
+          <>
+            <ButtonSpinner />
+            Сохранение...
+          </>
+        ) : (
+          <>{isEditing ? 'Обновить' : 'Создать'} товар</>
+        )}
       </Button>
     </form>
   );

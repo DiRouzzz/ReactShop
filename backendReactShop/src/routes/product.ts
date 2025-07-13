@@ -59,6 +59,24 @@ router.get(
   }
 );
 
+router.get(
+  '/max/price',
+  async (
+    _req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    try {
+      const result = await Product.findOne()
+        .sort({ price: -1 })
+        .select('price');
+      res.send({ maxPrice: result?.price ?? 0 });
+    } catch (error) {
+      next(error);
+    }
+  }
+);
+
 router.get('/:id', async (req, res, next) => {
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -121,24 +139,6 @@ router.delete(
     try {
       await deleteProduct(req.params.id);
       res.send({ error: null });
-    } catch (error) {
-      next(error);
-    }
-  }
-);
-
-router.get(
-  '/max/price',
-  async (
-    _req: express.Request,
-    res: express.Response,
-    next: express.NextFunction
-  ) => {
-    try {
-      const result = await Product.findOne()
-        .sort({ price: -1 })
-        .select('price');
-      res.send({ maxPrice: result?.price ?? 0 });
     } catch (error) {
       next(error);
     }

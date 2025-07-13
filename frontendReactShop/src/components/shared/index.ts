@@ -3,6 +3,7 @@ export * from './AuthFormError';
 export * from './ButtonArrowRight';
 export * from './ButtonLike';
 export * from './ButtonLink';
+export * from './ButtonSpinner';
 export * from './Error';
 export * from './H2';
 export * from './Header';
